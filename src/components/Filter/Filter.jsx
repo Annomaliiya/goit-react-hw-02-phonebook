@@ -1,7 +1,7 @@
-import ContactList from '../ContactList';
+import PropTypes from 'prop-types';
 import styles from './Filter.module.css';
 
-const Filter = ({nameInputId,filter, handleChange,filterInputId, }) => {
+const Filter = ({nameInputId, filter, handleChange,filterInputId, }) => {
     return (
         <>
             <label className={styles.label} htmlFor={nameInputId}>Find contacts by name
@@ -15,8 +15,14 @@ const Filter = ({nameInputId,filter, handleChange,filterInputId, }) => {
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               required
             /></label>
-
             </>
     )
 }
 export default Filter;
+
+Filter.propTypes = {
+  nameInputId: PropTypes.string.isRequired,
+  filterInputId: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
+  handleChange:PropTypes.func.isRequired
+}

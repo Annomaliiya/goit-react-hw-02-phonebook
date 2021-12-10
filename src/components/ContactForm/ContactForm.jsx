@@ -30,3 +30,12 @@ const ContactForm = ({ addContact, nameInputId, name, number, handleChange, numb
 
 
 export default ContactForm;
+
+ContactForm.propTypes = {
+    addContact: PropTypes.func.isRequired,
+    nameInputId: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+    handleChange: PropTypes.func.isRequired,
+    numberInputId: PropTypes.string.isRequired
+}

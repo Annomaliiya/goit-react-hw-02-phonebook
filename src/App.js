@@ -1,5 +1,7 @@
+import propTypes from 'prop-types';
 import { nanoid } from 'nanoid'
 import { Component } from 'react/cjs/react.production.min';
+
 
 import Section from './components/Section';
 import ContactForm from "./components/ContactForm";
