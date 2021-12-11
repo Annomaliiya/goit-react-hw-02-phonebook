@@ -1,4 +1,3 @@
-import propTypes from 'prop-types';
 import { nanoid } from 'nanoid'
 import { Component } from 'react/cjs/react.production.min';
 
@@ -18,8 +17,6 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: ''
   };
 
   nameInputId = nanoid();
@@ -29,17 +26,24 @@ class App extends Component {
 
   addContact = (event) => {
     event.preventDefault();
+    if (this.state.contacts.find((contact) => {
+      return contact.name.toLowerCase() === this.state.name.toLowerCase();
+    })) {
+      alert(this.state.name + " is already in contacts.");
+      return;
+    }
     this.setState(prevState => {
       const newContact = {
         id: nanoid(),
         name: this.state.name,
         number: this.state.number
       };
-      this.setState({ name: "", number: "" });
       return {
         contacts: [...prevState.contacts, newContact],
       }
     })
+
+    this.setState({ name: "", number: "" });
   };
 
   handleChange = (event) => {
@@ -73,7 +77,6 @@ class App extends Component {
   render() {
     const { getFiltered } = this;
     const contacts = getFiltered();
-    const renderContacts = contacts.map((contact) => (<li className={styles.contactsListItem}>{contact.name} {contact.number}</li>))
     return (
       <>
         <Section title="Phonebook">
@@ -81,7 +84,7 @@ class App extends Component {
         </Section>
         <Section title='Contacts'>
           <Filter nameInputId={this.nameInputId} filter={this.state.filter} handleChange={this.handleChange} filterInputId={this.filterInputId} />
-          <ContactList renderContacts={renderContacts}
+          <ContactList contacts={contacts} deleteFunction={this.deleteContact}
           />
 
         </Section>
