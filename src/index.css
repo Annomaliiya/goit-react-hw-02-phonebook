@@ -4,7 +4,6 @@ body {
   margin: 0;
   font-family: "Fuzzy Bubbles", cursive;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 code {

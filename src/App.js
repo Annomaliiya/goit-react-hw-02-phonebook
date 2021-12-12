@@ -1,12 +1,11 @@
-import { nanoid } from 'nanoid'
-import { Component } from 'react/cjs/react.production.min';
+
+import { Component } from 'react';
 
 
 import Section from './components/Section';
 import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
 import Filter from "./components/Filter"
-import styles from './App.module.css';
 
 class App extends Component {
   state = {
@@ -19,31 +18,12 @@ class App extends Component {
     filter: '',
   };
 
-  nameInputId = nanoid();
-  filterInputId = nanoid();
-  numberInputId = nanoid();
-
-
-  addContact = (event) => {
-    event.preventDefault();
-    if (this.state.contacts.find((contact) => {
-      return contact.name.toLowerCase() === this.state.name.toLowerCase();
-    })) {
-      alert(this.state.name + " is already in contacts.");
-      return;
-    }
+  changeContact = (newContact) => {
     this.setState(prevState => {
-      const newContact = {
-        id: nanoid(),
-        name: this.state.name,
-        number: this.state.number
-      };
-      return {
-        contacts: [...prevState.contacts, newContact],
-      }
+      return (
+        { contacts: [...prevState.contacts, newContact] }
+      );
     })
-
-    this.setState({ name: "", number: "" });
   };
 
   handleChange = (event) => {
@@ -52,7 +32,7 @@ class App extends Component {
     this.setState({ [name]: value });
   };
 
-  deleteContact = contactId => {
+  deleteContact = (contactId) => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
@@ -80,10 +60,10 @@ class App extends Component {
     return (
       <>
         <Section title="Phonebook">
-          <ContactForm addContact={this.addContact} nameInputId={this.nameInputId} name={this.state.name} number={this.state.number} handleChange={this.handleChange} numberInputId={this.nameInputId} />
+          <ContactForm contacts={this.state.contacts} handleChange={this.handleChange} changeContact={this.changeContact} />
         </Section>
         <Section title='Contacts'>
-          <Filter nameInputId={this.nameInputId} filter={this.state.filter} handleChange={this.handleChange} filterInputId={this.filterInputId} />
+          <Filter filter={this.state.filter} handleChange={this.handleChange} />
           <ContactList contacts={contacts} deleteFunction={this.deleteContact}
           />
 
